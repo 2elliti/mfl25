@@ -55,7 +55,7 @@ object_file *parse_obj_file(uint8_t *file){
 
 bool validate_elf(object_file *obj){
 	Elf64_Ehdr *hdr = (Elf64_Ehdr *)obj->buff;
-	if(hdr->e_ident[0] != 0x7f || memcmp(hdr->e_indent, "\x7f" "ELF", 4) != 0){
+	if(hdr->e_ident[0] != 0x7f || memcmp(hdr->e_ident, "\x7f" "ELF", 4) != 0){
 		fprintf(stderr, "%s is not an elf format\n", obj->filename);
 		return false;
 	}
