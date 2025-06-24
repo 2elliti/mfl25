@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(KE VERSION 0.1.0)
+project(slld VERSION 0.1.0)
 
 set(
   PROG_SRCS
