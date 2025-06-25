@@ -4,6 +4,8 @@ project(slld VERSION 0.1.0)
 set(
   PROG_SRCS
 
+  src/poola.c
+
   src/main.c
 )
 
