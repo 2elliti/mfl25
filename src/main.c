@@ -18,7 +18,7 @@ void print_help(uint8_t *file){
 	fprintf(stdout, "%s is a static linker, which is under construction.\n", file);
 }
 
-object_file *parse_obj_file(uint8_t *file){
+object_file *read_obj_file(uint8_t *file){
 	int fd;		// File descriptor
 	off_t offset;	// File offset;
 	object_file *obj = (object_file *)malloc(sizeof(object_file));	
@@ -54,12 +54,14 @@ object_file *parse_obj_file(uint8_t *file){
 }
 
 bool validate_elf(object_file *obj){
-	Elf64_Ehdr *hdr = (Elf64_Ehdr *)obj->buff;
-	if(hdr->e_ident[0] != 0x7f || memcmp(hdr->e_ident, "\x7f" "ELF", 4) != 0){
+	obj->ehdr = (Elf64_Ehdr *)obj->buff;
+	obj->phdr = (Elf64_Phdr *)(obj->buff + obj->ehdr->e_phoff);
+	obj->shdr = (Elf64_Shdr *)(obj->buff + obj->ehdr->e_shoff);
+	if(obj->ehdr->e_ident[0] != 0x7f || memcmp(obj->ehdr->e_ident, "\x7f" "ELF", 4) != 0){
 		fprintf(stderr, "%s is not an elf format\n", obj->filename);
 		return false;
 	}
-	if(hdr->e_type != ET_REL){
+	if(obj->ehdr->e_type != ET_REL){
 		fprintf(stderr,"%s is not relocatable object file\n", obj->filename);
 		return false;
 	}
@@ -85,7 +87,7 @@ int main(int argc, uint8_t *argv[]){
 	
 	for(int curr = 0; curr < argc; curr++){
 		if(strstr(argv[curr], ".o")){
-			modules[obj_num] = parse_obj_file(argv[curr]);					
+			modules[obj_num] = read_obj_file(argv[curr]);					
 			obj_num++;
 		}
 	}
@@ -99,6 +101,7 @@ int main(int argc, uint8_t *argv[]){
 			fprintf(stderr,"Object file %s: FAIL\nExiting Process\n", modules[curr]->filename);
 			exit(1);
 		}
-	}	
+	}
 
+	par_sym_tab(modules);
 }

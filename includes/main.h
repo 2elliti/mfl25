@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,11 +9,6 @@
 #include <unistd.h>
 #include <elf.h>
 #include <stdbool.h>
+#include "parse.h"
 
-struct object_file{
-	int fd;				// File descriptor for an objectfile.
-	uint8_t *filename;		// stores name of a file. {path}
-	uint8_t *buff;			// Stores object data.
-};
-
-typedef struct object_file object_file;
+#endif
