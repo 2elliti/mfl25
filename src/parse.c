@@ -8,6 +8,7 @@ void par_sym_tab(object_file **module){
 				obj->strtab = (char *)&obj->buff[obj->shdr[obj->shdr[shnum].sh_link].sh_offset];
 				obj->symtab = (Elf64_Sym *)&obj->buff[obj->shdr[shnum].sh_offset];
 				for(int curr_sym = 0; curr_sym < obj->shdr[shnum].sh_size/sizeof(Elf64_Sym); curr_sym++){
+					if(obj->symtab[curr_sym].st_name == 0) continue;
 					char *symbol = &obj->strtab[obj->symtab[curr_sym].st_name];
 					printf("Symbolfound: %s \n", symbol);
 				}
