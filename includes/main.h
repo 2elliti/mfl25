@@ -8,11 +8,9 @@
 #include <stdbool.h>
 
 struct object_file{
-	int fd;			// File descriptor for an objectfile.
-	uint8_t *filename;		// stores name of a file.
-	uint8_t *buff;		// Stores object data.
+	int fd;				// File descriptor for an objectfile.
+	uint8_t *filename;		// stores name of a file. {path}
+	uint8_t *buff;			// Stores object data.
 };
 
 typedef struct object_file object_file;
-
-

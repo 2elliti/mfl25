@@ -5,9 +5,8 @@ DATE: 9 june 2025
 AUTHOR: Mrinal Yadav
 
 TODO:
-	[] Validate e_indent {magic number}.
-	[] Ensure e_type is ET_REL.	mfl works on relocatable excutable files.
-
+	[DONE] Validate e_indent {magic number}.
+	[DONE] Ensure e_type is ET_REL.	mfl works on relocatable excutable files.
 */
 
 void print_usage(uint8_t *file){
@@ -47,10 +46,11 @@ object_file *parse_obj_file(uint8_t *file){
 	}	
 	
 	buff[offset+1] = '\0';	
+	
 	obj->buff = buff;
+	obj->filename = file;
 
 	return obj;	
-
 }
 
 bool validate_elf(object_file *obj){
@@ -96,7 +96,8 @@ int main(int argc, uint8_t *argv[]){
 		if(validate_elf(modules[curr])){
 			fprintf(stdout,"Object file %s: PASSED\n", modules[curr]->filename);
 		}else{
-			fprintf(stderr,"Object file %s: FAILE\n", modules[curr]->filename);
+			fprintf(stderr,"Object file %s: FAIL\nExiting Process\n", modules[curr]->filename);
+			exit(1);
 		}
 	}	
 
