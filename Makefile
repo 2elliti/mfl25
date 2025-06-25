@@ -13,7 +13,7 @@ endif
 
 
 all:
-	$(CC)	$(SRC)/main.c -I$(INCLUDES) $(CFLAGS) -o $(BIN)/bin 
+	$(CC)	$(SRC)/main.c $(SRC)/parse.c -I$(INCLUDES) $(CFLAGS) -o $(BIN)/bin 
 
 clean:
 	rm $(BIN)/bin
