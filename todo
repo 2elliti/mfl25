@@ -6,7 +6,7 @@ AIM:
 	MFL25 is a POC project. What does that mean? It's starts as a simple elf static linker and overtime gets more features.
 	
 TODO:
-        [DONE] Validate e_indent {magic number}.
-        [DONE] Ensure e_type is ET_REL. mfl works on relocatable excutable files.
-	[]     Archive file parser. Because static library will be provided to us in archive format.
-
+        [DONE] 	Validate e_indent {magic number}.
+        [DONE] 	Ensure e_type is ET_REL. mfl works on relocatable excutable files.
+	[]     	Archive file parser. Because static library will be provided to us in archive format.
+	[]   	A thread safe set data structure for storing defined symbols, undefined symbols.
